@@ -3,6 +3,9 @@ Welcome to arnes AAI autologin
 
 "make account.py" is a script that allows a user to create a new account by entering a username, password, and key. The script does the following:
 
+(Before using this script make sure that the img folder containing the images of the login field is extracted into the same directory as the script)
+
+
 1. 	Imports the Tkinter, hashlib, base64, and os libraries.
 2.	Creates a new directory called "accounts" if it doesn't already exist.
 3.	Creates a login window using Tkinter, with entry fields for the username, password, and key.
@@ -29,3 +32,6 @@ Welcome to arnes AAI autologin
 	3.6.	The login function then uses PyAutoGUI to locate and click on certain elements on the screen, enter the name, domain, and decrypted password, and confirm the login.
 4.	Creates the main window using Tkinter, creates entry fields for the key and account dropdown menu, and creates a button that triggers the login function when clicked.
 5.	Runs the main loop for the main window.
+
+
+
