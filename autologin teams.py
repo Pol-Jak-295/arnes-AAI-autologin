@@ -1,13 +1,10 @@
-
 import pyautogui, pyperclip, pyscreeze, numpy, cv2
-
 import base64
 import hashlib 
 import os
 import customtkinter
 
 cwd = os.getcwd()
-
 
 def remove_special_characters(path):
     characters_to_remove = ['(', ')', ',', "'"]
@@ -17,25 +14,16 @@ def remove_special_characters(path):
             new_path += character
     return new_path
 
-
-    # assign the return value of remove_special_characters to path
-
-    # get the inputed key
-
-        # close the window
 def login(event = None):
-    # get the selected user
     global path
     path = remove_special_characters(cwd  + '\\accounts\\' + account_var.get())
     
-    # get the inputed key
     key = key_entry.get()
     
     # read the key.txt file of the selected user
     with open(path + '\\key.txt', 'r') as f:
         key_txt = f.read()
 
-    # hash the inputed key
     hashed_key = hashlib.sha256(key.encode()).hexdigest()
 
     # check if the hashed inputed key matches the key in key.txt
@@ -51,7 +39,6 @@ def login(event = None):
             domain = f.read()
         with open (path + '\\password.txt', 'r') as f:
             encoded_password = f.read()
-        # close the window
         app.destroy()
         
         # Get the password
@@ -81,7 +68,7 @@ def login(event = None):
     pyautogui.move(location_c.left + 140, location_c.top + 370)
     pyautogui.sleep(0.1)
     pyautogui.click(location_c.left + 140, location_c.top + 370)
-# Create the main window
+# Create the gui window
 app = customtkinter.CTk()
 app.title("Account Login")
 
@@ -117,8 +104,7 @@ combobox.pack(padx=20, pady=10)
 
 username = account_var.get()
 
-# Use a different font for the dropdown menu and set the width to 20 characters
-# Use a different font for the entry field and set the width to 20 characters
+
 key_var = customtkinter.StringVar(app)
 key_entry = customtkinter.CTkEntry(master=frame,
                                placeholder_text='key',
@@ -130,7 +116,6 @@ key_entry = customtkinter.CTkEntry(master=frame,
                                show='*')
 key_entry.place(relx=0.5, rely=0.5)
 key_entry.pack(padx=20, pady=15)
-# Use a different font for the button and set the background color to light blue
 button = customtkinter.CTkButton(master=frame,
                                  width=120,
                                  height=32,
@@ -141,8 +126,6 @@ button = customtkinter.CTkButton(master=frame,
                                  border_color='black')
 button.place(relx=0.5, rely=0.7)
 button.pack(padx=20, pady=50)
-# Use a different font for the status label and set the background color to light yellow
-
 
 # Run the main loop
 app.mainloop()
