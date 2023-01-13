@@ -10,13 +10,21 @@ Welcome to arnes AAI autologin
 2.	Creates a new directory called "accounts" if it doesn't already exist.
 3.	Creates a login window using Tkinter, with entry fields for the username, password, and key.
 4.	Defines a login function that is triggered when the user clicks a button or hits the 'enter' key while the password entry field is focused. The login function does the following:
+	
 	4.1.	Gets the entered username, password, and key.
+
 	4.2.	Hashes the key using the SHA-256 algorithm.
+
 	4.3.	Splits the username into a name and domain if necessary.
+
 	4.4.	Defines and calls a function that encrypts the password using the entered key.
+
 	4.5.	If a directory with the entered username doesn't exist, creates it.
+
 	4.6.	Saves the name, domain, encrypted password, and hashed key to separate files within the username directory.
+
 	4.7.	Closes the main window.
+	
 5.	Creates a login button that triggers the login function when clicked.
 6.	Runs the main loop for the main window.
 "autologin.py" is a script that allows a user to log in to a previously created account by entering their key and selecting the corresponding account from a dropdown menu. The script does the following:

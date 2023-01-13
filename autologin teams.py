@@ -1,10 +1,10 @@
 
 import pyautogui, pyperclip, pyscreeze, numpy, cv2
-import tkinter as tk
+
 import base64
 import hashlib 
 import os
-
+import customtkinter
 
 cwd = os.getcwd()
 
@@ -52,7 +52,7 @@ def login(event = None):
         with open (path + '\\password.txt', 'r') as f:
             encoded_password = f.read()
         # close the window
-        window.destroy()
+        app.destroy()
         
         # Get the password
         def decrypt(encoded_password, key):
@@ -77,47 +77,73 @@ def login(event = None):
     pyautogui.write(password, 0.03)
     pyautogui.press('enter')
     pyautogui.sleep(1)
-    location_c = pyautogui.locateOnScreen(cwd + '\\img\\Screen confirmations.png', region=( 0, 0, 1920, 1080), grayscale = True, confidence = 0.7 )
-    pyautogui.move(location_c.left + 55, location_c.top + 285)
-    pyautogui.sleep(0.1)
-    pyautogui.click(location_c.left + 55, location_c.top + 285)
+    location_c = pyautogui.locateOnScreen(cwd + '\\img\\Screen confirmations.png', region=( 0, 0, 1920, 1080), grayscale = True, confidence = 0.5)
     pyautogui.move(location_c.left + 140, location_c.top + 370)
     pyautogui.sleep(0.1)
     pyautogui.click(location_c.left + 140, location_c.top + 370)
 # Create the main window
-window = tk.Tk()
-window.title("Account Login")
+app = customtkinter.CTk()
+app.title("Account Login")
 
+frame = customtkinter.CTkFrame(master=app,
+                               width=200,
+                               height=200,
+                               corner_radius=10)
+frame.pack(padx=20, pady=20)
+
+textbox = customtkinter.CTkTextbox(master=frame,
+                                   width=258,
+                                   height=20,
+                                   corner_radius=10,
+                                   border_width=2,
+                                   border_color='blue', 
+                                   )
+textbox.insert("0.0", "Welcome to autologin account creation.")  # insert at line 0 character 0
+text = textbox.get("0.0", "end")  # get text from line 0 character 0 till the end
+
+textbox.configure(state="disabled")  # configure textbox to be read-only
+textbox.pack(padx=10, pady=5)
+account_var = customtkinter.StringVar(value="choose user")  # set initial value
+
+def optionmenu_callback(choice):
+    print("optionmenu dropdown clicked:", choice)
+
+combobox = customtkinter.CTkComboBox(master=frame,
+                                     values=os.listdir("accounts"),
+                                     command=optionmenu_callback,
+                                     variable=account_var)
+combobox.pack(padx=20, pady=10)
 # Use a larger font for the label and set the background color to light green
-label = tk.Label(text="Select an account and enter the key:", font=("Arial", 16), bg="lightgreen")
-label.pack()
 
-# Use a different font for the dropdown menu and set the width to 20 characters
-account_var = tk.StringVar(window)
-account_menu = tk.OptionMenu(window, account_var, *os.listdir("accounts"))
-account_menu.config(font=("Arial", 14), width=20)
-account_menu.pack()
-# Use a different font for the entry field and set the width to 20 characters
-key_var = tk.StringVar(window)
-key_entry = tk.Entry(window, textvariable=key_var, show="*", font=("Arial", 14), width=20)
-key_entry.pack()
-
-# Use a different font for the button and set the background color to light blue
-submit_button = tk.Button(text="Submit", command=login, font=("Arial", 14), bg="lightblue")
-submit_button.pack()
-
-# Use a different font for the status label and set the background color to light yellow
-status_var = tk.StringVar(window)
-status_label = tk.Label(textvariable=status_var, font=("Arial", 14), bg="lightyellow")
-status_label.pack()
-
-# Set the focus to the key input box
-key_entry.focus_set()
-
-# Bind the Enter key to the login function
-window.bind("<Return>", login)
 username = account_var.get()
 
+# Use a different font for the dropdown menu and set the width to 20 characters
+# Use a different font for the entry field and set the width to 20 characters
+key_var = customtkinter.StringVar(app)
+key_entry = customtkinter.CTkEntry(master=frame,
+                               placeholder_text='key',
+                               width=300,
+                               height=35,
+                               border_width=2,
+                               corner_radius=8,
+                               text_color='silver',
+                               show='*')
+key_entry.place(relx=0.5, rely=0.5)
+key_entry.pack(padx=20, pady=15)
+# Use a different font for the button and set the background color to light blue
+button = customtkinter.CTkButton(master=frame,
+                                 width=120,
+                                 height=32,
+                                 border_width=2,
+                                 corner_radius=8,
+                                 text="login",
+                                 command=lambda: login(),
+                                 border_color='black')
+button.place(relx=0.5, rely=0.7)
+button.pack(padx=20, pady=50)
+# Use a different font for the status label and set the background color to light yellow
+
+
 # Run the main loop
-window.mainloop()
+app.mainloop()
    
