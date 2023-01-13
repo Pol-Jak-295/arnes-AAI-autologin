@@ -84,14 +84,11 @@ def login():
     username_value = username_entry.get()
     key_value = key_entry.get()
 
-    
-    
-    # Get the entered username and password
-    #password = password_entry.get()
-    #key = key_entry.get()
     encrypted_key = hashlib.sha256(key_value.encode()).hexdigest()
-    # Split the username into name and domain if necessary
     
+      
+      
+      # Split the username into name and domain if necessary
     if "@" in username_value:
         name, domain = username_value.split("@")
     else:
