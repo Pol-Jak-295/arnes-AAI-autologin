@@ -1,4 +1,4 @@
-
+#python 3.11, made by Pol_Jak_295
 import pyautogui, pyperclip, pyscreeze, numpy, cv2
 
 import base64
