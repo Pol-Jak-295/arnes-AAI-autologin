@@ -1,3 +1,4 @@
+#python 3.11, made by Pol_Jak_295
 import customtkinter
 import hashlib
 import base64
