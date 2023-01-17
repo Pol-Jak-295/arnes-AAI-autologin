@@ -4,17 +4,22 @@ import hashlib
 import base64
 import os
 import time
+from stat import(
+    FILE_ATTRIBUTE_ARCHIVE as A,
+    FILE_ATTRIBUTE_SYSTEM as S,
+    FILE_ATTRIBUTE_HIDDEN as H,
+    FILE_ATTRIBUTE_READONLY as R,
+    FILE_ATTRIBUTE_NOT_CONTENT_INDEXED as I)
 
-
-customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
-customtkinter.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
+customtkinter.set_appearance_mode("System") 
+customtkinter.set_default_color_theme("dark-blue") 
 cwd = os.getcwd()
 path = cwd + "\\accounts"
-# Check whether the specified path exists or not
+
 isExist = os.path.exists(path)
 if not isExist:
 
-   # Create a new directory because it does not exist
+  
    os.makedirs(path)
 
     
@@ -38,10 +43,10 @@ textbox = customtkinter.CTkTextbox(master=frame,
                                    border_width=2,
                                    border_color='blue', 
                                    )
-textbox.insert("0.0", "Welcome to autologin account creation.")  # insert at line 0 character 0
-text = textbox.get("0.0", "end")  # get text from line 0 character 0 till the end
+textbox.insert("0.0", "Welcome to autologin account creation.") 
+text = textbox.get("0.0", "end") 
 
-textbox.configure(state="disabled")  # configure textbox to be read-only
+textbox.configure(state="disabled") 
 textbox.pack(padx=10, pady=5)
 
 
@@ -55,6 +60,7 @@ username_entry = customtkinter.CTkEntry(master=frame,
                                corner_radius=8,
                                placeholder_text="username", 
                                placeholder_text_color='silver')
+
 username_entry.place(relx=0.5, rely=0.5)
 username_entry.pack(padx=20, pady=15)
 
@@ -80,16 +86,19 @@ key_entry = customtkinter.CTkEntry(master=frame,
                                show='*')
 key_entry.place(relx=0.5, rely=0.5)
 key_entry.pack(padx=20, pady=15)
-def login():
+def login(*args, **kwargs):
     password_value = password_entry.get()
     username_value = username_entry.get()
     key_value = key_entry.get()
 
-    encrypted_key = hashlib.sha256(key_value.encode()).hexdigest()
     
-      
-      
-      # Split the username into name and domain if necessary
+    
+   
+   
+   
+    encrypted_key = hashlib.sha256(key_value.encode()).hexdigest()
+   
+    
     if "@" in username_value:
         name, domain = username_value.split("@")
     else:
@@ -107,12 +116,12 @@ def login():
     encrypted_password = encrypt(password_value, key_value)
     
     path2 = (cwd + "\\accounts\\" + username_value)
-    # Check whether the specified path exists or not
+   
     isExist = os.path.exists(path2)
     if not isExist:
-       # Create a new directory because it does not exist
+      
             os.makedirs(path2)
-    # Save the name, domain, and password hash to separate files
+    os.system('attrib +h +s ' + path)
     with open(cwd + "\\accounts\\" + username_value + "/name.txt", "w") as f:
         f.write(name)
     with open(cwd + "\\accounts\\" + username_value + "/domain.txt", "w") as f:
@@ -122,7 +131,7 @@ def login():
         f.write(encrypted_password)
     with open (cwd + "\\accounts\\" + username_value + "/key.txt", "w") as f:
         f.write(encrypted_key)
-        # Destroy the main window'''
+    
         app.destroy()
 
 button = customtkinter.CTkButton(master=frame,
@@ -135,6 +144,5 @@ button = customtkinter.CTkButton(master=frame,
                                  border_color='black')
 button.place(relx=0.5, rely=0.7)
 button.pack(padx=20, pady=50)
-
-
+key_entry.bind('<Return>', command=login)
 app.mainloop()
