@@ -1,4 +1,4 @@
-#python 3.11, made by Pol_Jak_295
+
 import pyautogui, pyperclip, pyscreeze, numpy, cv2
 
 import base64
@@ -77,10 +77,9 @@ def login(event = None):
     pyautogui.write(password, 0.03)
     pyautogui.press('enter')
     pyautogui.sleep(1)
-    location_c = pyautogui.locateOnScreen(cwd + '\\img\\Screen confirmations.png', region=( 0, 0, 1920, 1080), grayscale = True, confidence = 0.5)
-    pyautogui.move(location_c.left + 140, location_c.top + 370)
+    pyautogui.move(location.left + 140, location.top + 370)
     pyautogui.sleep(0.1)
-    pyautogui.click(location_c.left + 140, location_c.top + 370)
+    pyautogui.click(location.left + 140, location.top + 370)
 # Create the main window
 app = customtkinter.CTk()
 app.title("Account Login")
@@ -98,7 +97,7 @@ textbox = customtkinter.CTkTextbox(master=frame,
                                    border_width=2,
                                    border_color='blue', 
                                    )
-textbox.insert("0.0", "Welcome to the arnes AAI autologin script by Pol_Jak_295")  # insert at line 0 character 0
+textbox.insert("0.0", "Welcome to the arnes AAI autologin script by Jaka Polesnik")  # insert at line 0 character 0
 text = textbox.get("0.0", "end")  # get text from line 0 character 0 till the end
 
 textbox.configure(state="disabled")  # configure textbox to be read-only
@@ -130,6 +129,8 @@ key_entry = customtkinter.CTkEntry(master=frame,
                                show='*')
 key_entry.place(relx=0.5, rely=0.5)
 key_entry.pack(padx=20, pady=15)
+key_entry.bind('<Return>', login)
+
 # Use a different font for the button and set the background color to light blue
 button = customtkinter.CTkButton(master=frame,
                                  width=120,
@@ -146,4 +147,3 @@ button.pack(padx=20, pady=50)
 
 # Run the main loop
 app.mainloop()
-   
